@@ -1,0 +1,57 @@
+package com.eliza.db.poject.DBProject.models;
+
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
+public class Staff {
+
+    private int id;
+
+    @NotEmpty(message = "The name must not be empty")
+    @Size(min = 2, max = 100, message = "The name must be between 2 and 100 characters long")
+    private String name;
+
+    private int phoneNumber;
+
+    @NotEmpty(message = "The role must not be empty")
+    @Size(min = 2, max = 50, message = "The name must be between 2 and 50 characters long")
+    private String role;
+
+    public Staff(String name, int phoneNumber, String role) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+}
