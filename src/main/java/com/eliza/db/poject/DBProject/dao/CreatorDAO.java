@@ -18,6 +18,7 @@ public class CreatorDAO {
     }
 
     public List<Creator> index() {
+
         return jdbcTemplate.query("SELECT * FROM creator", new BeanPropertyRowMapper<>(Creator.class));
     }
 
@@ -37,6 +38,7 @@ public class CreatorDAO {
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM creator WHERE creator_id=?", id);
     }
+
 
 
 
