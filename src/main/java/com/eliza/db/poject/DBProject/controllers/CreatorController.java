@@ -5,7 +5,6 @@ import com.eliza.db.poject.DBProject.dao.CreatorDAO;
 import com.eliza.db.poject.DBProject.models.Creator;
 import com.eliza.db.poject.DBProject.util.CreatorErrorResponse;
 import com.eliza.db.poject.DBProject.util.CreatorNotCreatedException;
-import com.eliza.db.poject.DBProject.util.CreatorNotDeleteException;
 import com.eliza.db.poject.DBProject.util.CreatorNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,15 +55,24 @@ public class CreatorController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @PostMapping("/delete//{id}")
-    public void delete(@PathVariable("id") int id) {
-        creatorDAO.delete(id);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<HttpStatus> update(@PathVariable("id") int id, @RequestBody @Valid Creator creator, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            StringBuilder errorMsg = new StringBuilder();
+            bindingResult.getFieldErrors().forEach(error ->
+                    errorMsg.append(error.getField()).append(" - ").append(error.getDefaultMessage()).append(";"));
+            throw new CreatorNotCreatedException(errorMsg.toString());
+        }
+        creatorDAO.update(id, creator);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @PostMapping("/update")
-    public void update(@RequestBody @Valid Creator creator, BindingResult bindingResult, @PathVariable("id") int id) {
-        creatorDAO.update(id,creator);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<HttpStatus> delete(@PathVariable("id") int id) {
+        creatorDAO.delete(id);
+        return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
+
 
 
     @ExceptionHandler
@@ -85,13 +93,6 @@ public class CreatorController {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler
-    private ResponseEntity<CreatorErrorResponse> handleException(CreatorNotDeleteException e) {
-        CreatorErrorResponse response = new CreatorErrorResponse(
-                e.getMessage(), System.currentTimeMillis()
-        );
-        //status 400
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-    }
+
 
 }

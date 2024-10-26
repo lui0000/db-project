@@ -1,15 +1,12 @@
 package com.eliza.db.poject.DBProject.models;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-
-public class ExibitionHall {
+public class ExhibitionHall {
 
     private int id;
     private int serialNumber;
     private int capacity;
 
-    public ExibitionHall(int serialNumber, int capacity) {
+    public ExhibitionHall(int serialNumber, int capacity) {
         this.serialNumber = serialNumber;
         this.capacity = capacity;
     }

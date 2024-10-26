@@ -19,7 +19,7 @@ public class Creator {
     private String email;
 
     @NotEmpty(message = "The country must not be empty")
-    @Size(min = 1, max = 50, message = "The country must be between 2 and 100 characters long")
+    @Size(min = 2, max = 50, message = "The country must be between 2 and 100 characters long")
     private String country;
 
     @Min(value = 16, message = "The creator cannot be under 16")
