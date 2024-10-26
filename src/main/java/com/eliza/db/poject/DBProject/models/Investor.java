@@ -26,6 +26,9 @@ public class Investor {
         this.investmentAmount = investmentAmount;
     }
 
+    public Investor() {
+    }
+
     public int getId() {
         return id;
     }

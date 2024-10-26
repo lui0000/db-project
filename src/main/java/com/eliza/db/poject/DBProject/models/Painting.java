@@ -16,10 +16,16 @@ public class Painting {
     private LocalDateTime creationDate;
     private int price;
 
-    public Painting(String name, LocalDateTime creationDate, int price) {
+    private int creatorId;
+
+    public Painting(String name, LocalDateTime creationDate, int price, int creatorId) {
         this.name = name;
         this.creationDate = creationDate;
         this.price = price;
+        this.creatorId = creatorId;
+    }
+
+    public Painting() {
     }
 
     public int getId() {
@@ -52,5 +58,13 @@ public class Painting {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(int creatorId) {
+        this.creatorId = creatorId;
     }
 }

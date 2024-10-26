@@ -27,6 +27,9 @@ public class Organizer {
         this.email = email;
     }
 
+    public Organizer() {
+    }
+
     public int getId() {
         return id;
     }

@@ -17,10 +17,16 @@ public class Staff {
     @Size(min = 2, max = 50, message = "The name must be between 2 and 50 characters long")
     private String role;
 
-    public Staff(String name, int phoneNumber, String role) {
+    private int organizerId;
+
+    public Staff(String name, int phoneNumber, String role, int organizerId) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.role = role;
+        this.organizerId=organizerId;
+    }
+
+    public Staff() {
     }
 
     public int getId() {
@@ -53,5 +59,13 @@ public class Staff {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public int getOrganizerId() {
+        return organizerId;
+    }
+
+    public void setOrganizerId(int organizerId) {
+        this.organizerId = organizerId;
     }
 }

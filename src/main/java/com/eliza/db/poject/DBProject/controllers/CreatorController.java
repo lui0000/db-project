@@ -3,6 +3,8 @@ package com.eliza.db.poject.DBProject.controllers;
 
 import com.eliza.db.poject.DBProject.dao.CreatorDAO;
 import com.eliza.db.poject.DBProject.models.Creator;
+import com.eliza.db.poject.DBProject.models.ExhibitionHall;
+import com.eliza.db.poject.DBProject.models.Painting;
 import com.eliza.db.poject.DBProject.util.CreatorErrorResponse;
 import com.eliza.db.poject.DBProject.util.CreatorNotCreatedException;
 import com.eliza.db.poject.DBProject.util.CreatorNotFoundException;
@@ -71,6 +73,24 @@ public class CreatorController {
     public ResponseEntity<HttpStatus> delete(@PathVariable("id") int id) {
         creatorDAO.delete(id);
         return ResponseEntity.ok(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/connect/{creatorId}/{exhibitionHallId}")
+    public ResponseEntity<HttpStatus> connectCreatorWithExhibitionHall(
+            @PathVariable int creatorId,
+            @PathVariable int exhibitionHallId) {
+        creatorDAO.connectTheCreatorWithTheExhibitionHall(creatorId, exhibitionHallId);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @GetMapping("/paintingsbycreatorid/{id}")
+    public List<Painting> showPaintings(@PathVariable int id) {
+       return creatorDAO.getPaintingsByCreatorId(id);
+    }
+
+    @GetMapping("/getexhibitionhallbycreatorid/{id}")
+    public List<ExhibitionHall> showExhibitionHalls(@PathVariable int id) {
+        return creatorDAO.getExhibitionHallByCreatorId(id);
     }
 
 
