@@ -82,7 +82,7 @@ public class ExhibitionHallController {
                 "Exhibition hall with this id wasn't found", System.currentTimeMillis()
         );
         //status 400
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @ExceptionHandler
