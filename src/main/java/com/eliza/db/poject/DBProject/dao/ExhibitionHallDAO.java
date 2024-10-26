@@ -38,6 +38,10 @@ public class ExhibitionHallDAO {
     }
 
     public void delete(int id) {
-        jdbcTemplate.update("DELETE FROM exhibition_hall WHERE exhibition_hall_id=?", id);
+        int rowsAffected = jdbcTemplate.update("DELETE FROM exhibition_hall WHERE exhibition_hall_id=?", id);
+        if (rowsAffected == 0) {
+            throw new ExhibitionHallNotFoundException("Exhibition Hall with id: " + id + " not found");
+        }
     }
+
 }
