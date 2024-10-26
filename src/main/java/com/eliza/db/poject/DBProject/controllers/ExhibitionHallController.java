@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-// TODO fix id names in all classes to normal))
+// TODO fix id names in all classes to normal and do validation))
 
 @RestController
 @RequestMapping("/exhibitionhalls")
