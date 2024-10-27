@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 
 public class Investor {
 
-    private int id;
+    private int investorId;
 
     @NotEmpty(message = "The name must not be empty")
     @Size(min = 2, max = 100, message = "The name must be between 2 and 100 characters long")
@@ -29,12 +29,12 @@ public class Investor {
     public Investor() {
     }
 
-    public int getId() {
-        return id;
+    public int getInvestorId() {
+        return investorId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setInvestorId(int investorId) {
+        this.investorId = investorId;
     }
 
     public String getName() {

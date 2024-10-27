@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 
 public class Style {
 
-    private int id;
+    private int styleId;
 
     @NotEmpty(message = "The style must not be empty")
     @Size(min = 2, max = 100, message = "The style must be between 2 and 100 characters long")
@@ -21,12 +21,12 @@ public class Style {
     public Style() {
     }
 
-    public int getId() {
-        return id;
+    public int getStyleId() {
+        return styleId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setStyleId(int styleId) {
+        this.styleId = styleId;
     }
 
     public String getStyle() {

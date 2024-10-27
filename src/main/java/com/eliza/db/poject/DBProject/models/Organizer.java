@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 
 public class Organizer {
 
-    private int id;
+    private int organizerId;
 
     @NotEmpty(message = "The name must not be empty")
     @Size(min = 2, max = 100, message = "The name must be between 2 and 100 characters long")
@@ -30,12 +30,12 @@ public class Organizer {
     public Organizer() {
     }
 
-    public int getId() {
-        return id;
+    public int getOrganizerId() {
+        return organizerId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setOrganizerId(int organizerId) {
+        this.organizerId = organizerId;
     }
 
     public String getName() {

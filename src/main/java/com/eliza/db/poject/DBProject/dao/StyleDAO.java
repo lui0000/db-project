@@ -1,6 +1,7 @@
 package com.eliza.db.poject.DBProject.dao;
 
 import com.eliza.db.poject.DBProject.models.Style;
+import com.eliza.db.poject.DBProject.util.StyleNotCreatedException;
 import com.eliza.db.poject.DBProject.util.StyleNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -37,12 +38,18 @@ public class StyleDAO {
 
 
     public void update(int id, Style updatedStyle) {
-        jdbcTemplate.update("UPDATE style SET style=?, painting_id=? WHERE style_id=?",
+        int rowsAffected = jdbcTemplate.update("UPDATE style SET style=?, painting_id=? WHERE style_id=?",
                 updatedStyle.getStyle(), updatedStyle.getPaintingId(), id);
+        if (rowsAffected == 0) {
+            throw new StyleNotCreatedException("Style with id: " + id + " not found");
+        }
     }
 
 
     public void delete(int id) {
-        jdbcTemplate.update("DELETE FROM style WHERE style_id=?", id);
+        int rowsAffected = jdbcTemplate.update("DELETE FROM style WHERE style_id=?", id);
+        if (rowsAffected == 0) {
+            throw new StyleNotFoundException("Style with id: " + id + " not found");
+        }
     }
 }

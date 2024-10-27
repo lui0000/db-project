@@ -1,6 +1,7 @@
 package com.eliza.db.poject.DBProject.dao;
 
 import com.eliza.db.poject.DBProject.models.Staff;
+import com.eliza.db.poject.DBProject.util.StaffNotCreatedException;
 import com.eliza.db.poject.DBProject.util.StaffNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -36,12 +37,19 @@ public class StaffDAO {
     }
 
     public void update(int id, Staff updatedStaff) {
-        jdbcTemplate.update("UPDATE staff SET name=?, phone_number=?, role=?, organizer_id=? WHERE stuff_id=?",
+        int rowsAffected = jdbcTemplate.update("UPDATE staff SET name=?, phone_number=?, role=?, organizer_id=? WHERE stuff_id=?",
                 updatedStaff.getName(), updatedStaff.getPhoneNumber(),
                 updatedStaff.getRole(), updatedStaff.getOrganizerId(), id);
+        if (rowsAffected == 0) {
+            throw new StaffNotCreatedException("Staff with id: " + id + " not found");
+        }
     }
 
     public void delete(int id) {
-        jdbcTemplate.update("DELETE FROM staff WHERE stuff_id=?", id);
+        int rowsAffected = jdbcTemplate.update("DELETE FROM staff WHERE stuff_id=?", id);
+        if (rowsAffected == 0) {
+            throw new StaffNotFoundException("Staff with id: " + id + " not found");
+        }
     }
+
 }

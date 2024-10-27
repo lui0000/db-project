@@ -1,7 +1,9 @@
 package com.eliza.db.poject.DBProject.dao;
 
 import com.eliza.db.poject.DBProject.models.Investor;
+import com.eliza.db.poject.DBProject.util.InvestorNotCreatedException;
 import com.eliza.db.poject.DBProject.util.InvestorNotFoundException;
+import com.eliza.db.poject.DBProject.util.OrganizerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -37,13 +39,22 @@ public class InvestorDAO {
 
 
     public void update(int id, Investor updatedInvestor) {
-        jdbcTemplate.update("UPDATE investor SET name=?, email=?, investment_amount=? WHERE investor_id=?",
+
+        int rowsAffected =  jdbcTemplate.update("UPDATE investor SET name=?, email=?, investment_amount=? WHERE investor_id=?",
                 updatedInvestor.getName(), updatedInvestor.getEmail(),
                 updatedInvestor.getInvestmentAmount(), id);
+        if (rowsAffected == 0) {
+            throw new InvestorNotCreatedException("Investor with id: " + id + " not found");
+        }
     }
 
 
     public void delete(int id) {
-        jdbcTemplate.update("DELETE FROM investor WHERE investor_id=?", id);
+        int rowsAffected = jdbcTemplate.update("DELETE FROM investor WHERE investor_id=?", id);
+        if (rowsAffected == 0) {
+            throw new InvestorNotFoundException("Investor with id: " + id + " not found");
+        }
     }
+
+
 }
