@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 
 public class Creator {
 
-    private int id;
+    private int creatorId;
 
     @NotEmpty(message = "The name must not be empty")
     @Size(min = 2, max = 100, message = "The name must be between 2 and 100 characters long")
@@ -37,12 +37,12 @@ public class Creator {
 
     public Creator() {}
 
-    public int getId() {
-        return id;
+    public int getCreatorId() {
+        return creatorId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCreatorId(int creatorId) {
+        this.creatorId = creatorId;
     }
 
     public String getName() {

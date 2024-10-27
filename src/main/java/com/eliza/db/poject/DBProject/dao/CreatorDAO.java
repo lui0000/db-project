@@ -3,6 +3,7 @@ package com.eliza.db.poject.DBProject.dao;
 import com.eliza.db.poject.DBProject.models.Creator;
 import com.eliza.db.poject.DBProject.models.ExhibitionHall;
 import com.eliza.db.poject.DBProject.models.Painting;
+import com.eliza.db.poject.DBProject.util.CreatorNotCreatedException;
 import com.eliza.db.poject.DBProject.util.CreatorNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -35,17 +36,26 @@ public class CreatorDAO {
     }
 
     public void update(int id, Creator updatedCreator) {
-        jdbcTemplate.update("UPDATE creator SET name=?, email=?, country=?, age=?, number_of_works=? WHERE creator_id=?",
+        int rowsAffected = jdbcTemplate.update("UPDATE creator SET name=?, email=?, country=?, age=?, number_of_works=? WHERE creator_id=?",
                 updatedCreator.getName(), updatedCreator.getEmail(), updatedCreator.getCountry(), updatedCreator.getAge(), updatedCreator.getNumberOfWorks(), id);
+        if (rowsAffected == 0) {
+            throw new CreatorNotCreatedException("Creator with id: " + id + " not found");
+        }
     }
 
     public void delete(int id) {
-        jdbcTemplate.update("DELETE FROM creator WHERE creator_id=?", id);
+        int rowsAffected = jdbcTemplate.update("DELETE FROM creator WHERE creator_id=?", id);
+        if (rowsAffected == 0) {
+            throw new CreatorNotFoundException("Creator with id: " + id + " not found");
+        }
     }
 
     public void connectTheCreatorWithTheExhibitionHall(int creatorId, int exhibitionHallId) {
-        jdbcTemplate.update("INSERT INTO creator_exhibition_hall(creator_id, exhibition_hall_id) VALUES(?, ?)",
+        int rowsAffected = jdbcTemplate.update("INSERT INTO creator_exhibition_hall(creator_id, exhibition_hall_id) VALUES(?, ?)",
                 creatorId, exhibitionHallId);
+        if (rowsAffected == 0) {
+            throw new CreatorNotCreatedException("Creator or Exhibition Hall with creatorId: " + creatorId + ", or exhibitionHallId: " + exhibitionHallId + " not found");
+        }
     }
 
 

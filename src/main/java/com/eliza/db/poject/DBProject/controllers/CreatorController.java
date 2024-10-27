@@ -54,7 +54,7 @@ public class CreatorController {
             throw new CreatorNotCreatedException(errorMsg.toString());
         }
         creatorDAO.save(creator);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/update/{id}")
@@ -71,8 +71,13 @@ public class CreatorController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> delete(@PathVariable("id") int id) {
-        creatorDAO.delete(id);
-        return ResponseEntity.ok(HttpStatus.NO_CONTENT);
+        try{
+            creatorDAO.delete(id);
+            return ResponseEntity.noContent().build();
+        } catch (CreatorNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
     }
 
     @PostMapping("/connect/{creatorId}/{exhibitionHallId}")
@@ -83,12 +88,12 @@ public class CreatorController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @GetMapping("/paintingsbycreatorid/{id}")
+    @GetMapping("/creators/{id}/paintings")
     public List<Painting> showPaintings(@PathVariable int id) {
        return creatorDAO.getPaintingsByCreatorId(id);
     }
 
-    @GetMapping("/getexhibitionhallbycreatorid/{id}")
+    @GetMapping("/creators/{id}/exhibition-halls")
     public List<ExhibitionHall> showExhibitionHalls(@PathVariable int id) {
         return creatorDAO.getExhibitionHallByCreatorId(id);
     }

@@ -1,6 +1,7 @@
 package com.eliza.db.poject.DBProject.dao;
 
 import com.eliza.db.poject.DBProject.models.ExhibitionHall;
+import com.eliza.db.poject.DBProject.util.ExhibitionHallNotCreatedException;
 import com.eliza.db.poject.DBProject.util.ExhibitionHallNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -30,11 +31,17 @@ public class ExhibitionHallDAO {
     public void save(ExhibitionHall exhibitionHall) {
         jdbcTemplate.update("INSERT INTO exhibition_hall(organizer_id, serial_number, capacity) VALUES(?, ?, ?)",
                 exhibitionHall.getOrganizerId(), exhibitionHall.getSerialNumber(), exhibitionHall.getCapacity());
+
+
     }
 
     public void update(int id, ExhibitionHall updatedExhibitionHall) {
-        jdbcTemplate.update("UPDATE exhibition_hall SET organizer_id=?, serial_number=?, capacity=? WHERE exhibition_hall_id=?",
+        int rowsAffected = jdbcTemplate.update("UPDATE exhibition_hall SET organizer_id=?, serial_number=?, capacity=? WHERE exhibition_hall_id=?",
                 updatedExhibitionHall.getOrganizerId(), updatedExhibitionHall.getSerialNumber(), updatedExhibitionHall.getCapacity(), id);
+
+        if (rowsAffected == 0) {
+            throw new ExhibitionHallNotCreatedException("Exhibition Hall with id: " + id + " not found");
+        }
     }
 
     public void delete(int id) {

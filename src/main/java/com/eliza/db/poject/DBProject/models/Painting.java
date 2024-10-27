@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public class Painting {
 
-    private int id;
+    private int paintingId;
 
     @NotEmpty(message = "The name must not be empty")
     @Size(min = 2, max = 100, message = "The name must be between 2 and 100 characters long")
@@ -28,12 +28,12 @@ public class Painting {
     public Painting() {
     }
 
-    public int getId() {
-        return id;
+    public int getPaintingId() {
+        return paintingId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPaintingId(int paintingId) {
+        this.paintingId = paintingId;
     }
 
     public String getName() {

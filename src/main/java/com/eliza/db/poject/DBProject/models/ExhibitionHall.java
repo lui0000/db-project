@@ -2,7 +2,7 @@ package com.eliza.db.poject.DBProject.models;
 
 public class ExhibitionHall {
 
-    private int id;
+    private int exhibitionHallId;
     private int serialNumber;
     private int capacity;
     private int organizerId;
@@ -16,12 +16,12 @@ public class ExhibitionHall {
     public ExhibitionHall() {
     }
 
-    public int getId() {
-        return id;
+    public int getExhibitionHallId() {
+        return exhibitionHallId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setExhibitionHallId(int exhibitionHallId) {
+        this.exhibitionHallId = exhibitionHallId;
     }
 
 

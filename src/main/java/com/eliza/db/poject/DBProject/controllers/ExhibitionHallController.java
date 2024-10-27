@@ -38,9 +38,8 @@ public class ExhibitionHallController {
 
     @PostMapping("/add")
     public ResponseEntity<HttpStatus> create(@RequestBody @Valid ExhibitionHall exhibitionHall, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             StringBuilder errorMsg = new StringBuilder();
-
             List<FieldError> errors = bindingResult.getFieldErrors();
             for (FieldError error : errors) {
                 errorMsg.append(error.getField()).append(" - ")
@@ -50,8 +49,7 @@ public class ExhibitionHallController {
             throw new ExhibitionHallNotCreatedException(errorMsg.toString());
         }
         exhibitionHallDAO.save(exhibitionHall);
-        return ResponseEntity.ok(HttpStatus.CREATED);
-
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/update/{id}")
@@ -59,12 +57,12 @@ public class ExhibitionHallController {
         if (bindingResult.hasErrors()) {
             StringBuilder errorMsg = new StringBuilder();
             List<FieldError> errors = bindingResult.getFieldErrors();
-            for(FieldError error : errors) {
+            for (FieldError error : errors) {
                 errorMsg.append(error.getField()).append(" - ")
                         .append(error.getDefaultMessage())
                         .append(";");
             }
-            throw new ExhibitionHallNotFoundException(errorMsg.toString());
+            throw new ExhibitionHallNotCreatedException(errorMsg.toString());
         }
         exhibitionHallDAO.update(id, exhibitionHall);
         return ResponseEntity.ok(HttpStatus.OK);
@@ -72,8 +70,12 @@ public class ExhibitionHallController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> delete(@PathVariable("id") int id) {
-        exhibitionHallDAO.delete(id);
-        return ResponseEntity.ok(HttpStatus.NO_CONTENT);
+        try {
+            exhibitionHallDAO.delete(id);
+            return ResponseEntity.noContent().build();
+        } catch (ExhibitionHallNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @ExceptionHandler
@@ -81,8 +83,7 @@ public class ExhibitionHallController {
         ExhibitionHallErrorResponse response = new ExhibitionHallErrorResponse(
                 "Exhibition hall with this id wasn't found", System.currentTimeMillis()
         );
-        //status 400
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
@@ -90,8 +91,7 @@ public class ExhibitionHallController {
         ExhibitionHallErrorResponse response = new ExhibitionHallErrorResponse(
                 e.getMessage(), System.currentTimeMillis()
         );
-        //status 400
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
-
 }
+
