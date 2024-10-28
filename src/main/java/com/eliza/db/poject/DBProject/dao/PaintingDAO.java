@@ -1,6 +1,7 @@
 package com.eliza.db.poject.DBProject.dao;
 
 import com.eliza.db.poject.DBProject.models.Painting;
+import com.eliza.db.poject.DBProject.models.Style;
 import com.eliza.db.poject.DBProject.util.PaintingNotCreatedException;
 import com.eliza.db.poject.DBProject.util.PaintingNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +50,13 @@ public class PaintingDAO {
         if (rowsAffected == 0) {
             throw new PaintingNotFoundException("Painting with id: " + id + " not found");
         }
+    }
+    public List<Style> getStylesByPaintingId(int id) {
+        return jdbcTemplate.query("""
+                SELECT s.style_id,
+                    s.style,
+                    s.painting_id
+                FROM style AS s
+                    JOIN painting AS p ON s.painting_id = p.painting_id WHERE p.painting_id=?""", new BeanPropertyRowMapper<>(Style.class), id);
     }
 }

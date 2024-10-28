@@ -105,7 +105,6 @@ public class CreatorController {
         CreatorErrorResponse response = new CreatorErrorResponse(
                 "Creator with this id wasn't found", System.currentTimeMillis()
         );
-        //status 400
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
@@ -114,7 +113,6 @@ public class CreatorController {
         CreatorErrorResponse response = new CreatorErrorResponse(
                 e.getMessage(), System.currentTimeMillis()
         );
-        //status 400
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 

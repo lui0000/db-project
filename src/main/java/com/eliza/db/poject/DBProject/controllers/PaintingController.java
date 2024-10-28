@@ -2,6 +2,7 @@ package com.eliza.db.poject.DBProject.controllers;
 
 import com.eliza.db.poject.DBProject.dao.PaintingDAO;
 import com.eliza.db.poject.DBProject.models.Painting;
+import com.eliza.db.poject.DBProject.models.Style;
 import com.eliza.db.poject.DBProject.util.PaintingErrorResponse;
 import com.eliza.db.poject.DBProject.util.PaintingNotCreatedException;
 import com.eliza.db.poject.DBProject.util.PaintingNotFoundException;
@@ -76,6 +77,11 @@ public class PaintingController {
         } catch (PaintingNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    @GetMapping("/{id}/styles")
+    public List<Style> showStylesByPainting(@PathVariable("id") int id) {
+        return paintingDAO.getStylesByPaintingId(id);
     }
 
     @ExceptionHandler

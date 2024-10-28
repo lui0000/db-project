@@ -63,7 +63,7 @@ public class CreatorDAO {
     public List<Painting> getPaintingsByCreatorId(int id) {
         return jdbcTemplate.query("""
                 SELECT c.name,
-                    p.name, p.price, p.creation_date
+                    p.name, p.price, p.creation_date, p.creator_id, p.painting_id
                 FROM creator AS c
                     JOIN painting AS p ON c.creator_id = p.creator_id
                 WHERE c.creator_id = ?""", new BeanPropertyRowMapper<>(Painting.class), id);

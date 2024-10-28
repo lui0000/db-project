@@ -1,7 +1,7 @@
 package com.eliza.db.poject.DBProject.controllers;
 
 import com.eliza.db.poject.DBProject.dao.OrganizerDAO;
-import com.eliza.db.poject.DBProject.models.Organizer;
+import com.eliza.db.poject.DBProject.models.*;
 import com.eliza.db.poject.DBProject.util.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +89,24 @@ public class OrganizerController {
                 e.getMessage(), System.currentTimeMillis()
         );
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("/connect/{organizerId}/{investorId}")
+    public ResponseEntity<HttpStatus> connectOrganizerWithInvestor(
+            @PathVariable int organizerId,
+            @PathVariable int investorId) {
+        organizerDAO.connectTheOrganizerWithInvestor(organizerId, investorId);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/staff")
+    public List<Staff> showStaffByOrganizer(@PathVariable int id) {
+        return organizerDAO.getStaffByOrganizerId(id);
+    }
+
+    @GetMapping("/{id}/investors")
+    public List<Investor> showInvestorByOrganizerId(@PathVariable int id) {
+        return organizerDAO.getInvestorByOrganizerId(id);
     }
 }
 

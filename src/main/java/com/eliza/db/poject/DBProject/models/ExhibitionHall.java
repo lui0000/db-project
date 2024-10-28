@@ -1,9 +1,14 @@
 package com.eliza.db.poject.DBProject.models;
 
+import jakarta.validation.constraints.Min;
+
 public class ExhibitionHall {
 
     private int exhibitionHallId;
+
+    @Min(value = 1, message = "The count of exhibition hall cannot be under 1")
     private int serialNumber;
+
     private int capacity;
     private int organizerId;
 
