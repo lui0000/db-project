@@ -11,7 +11,7 @@ public class Staff {
     @Size(min = 2, max = 100, message = "The name must be between 2 and 100 characters long")
     private String name;
 
-    private int phoneNumber;
+    private long phoneNumber;
 
     @NotEmpty(message = "The role must not be empty")
     @Size(min = 2, max = 50, message = "The name must be between 2 and 50 characters long")
@@ -19,7 +19,7 @@ public class Staff {
 
     private int organizerId;
 
-    public Staff(String name, int phoneNumber, String role, int organizerId) {
+    public Staff(String name, long phoneNumber, String role, int organizerId) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.role = role;
@@ -45,11 +45,11 @@ public class Staff {
         this.name = name;
     }
 
-    public int getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

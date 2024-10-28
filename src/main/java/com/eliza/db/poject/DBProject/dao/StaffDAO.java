@@ -26,7 +26,7 @@ public class StaffDAO {
 
 
     public Staff show(int id) {
-        return jdbcTemplate.query("SELECT * FROM staff WHERE stuff_id=?",
+        return jdbcTemplate.query("SELECT * FROM staff WHERE staff_id=?",
                         new BeanPropertyRowMapper<>(Staff.class), id)
                 .stream().findAny().orElseThrow(() ->
                         new StaffNotFoundException("Staff with id: " + id + " not found"));
@@ -39,7 +39,7 @@ public class StaffDAO {
     }
 
     public void update(int id, Staff updatedStaff) {
-        int rowsAffected = jdbcTemplate.update("UPDATE staff SET name=?, phone_number=?, role=?, organizer_id=? WHERE stuff_id=?",
+        int rowsAffected = jdbcTemplate.update("UPDATE staff SET name=?, phone_number=?, role=?, organizer_id=? WHERE staff_id=?",
                 updatedStaff.getName(), updatedStaff.getPhoneNumber(),
                 updatedStaff.getRole(), updatedStaff.getOrganizerId(), id);
         if (rowsAffected == 0) {
@@ -48,7 +48,7 @@ public class StaffDAO {
     }
 
     public void delete(int id) {
-        int rowsAffected = jdbcTemplate.update("DELETE FROM staff WHERE stuff_id=?", id);
+        int rowsAffected = jdbcTemplate.update("DELETE FROM staff WHERE staff_id=?", id);
         if (rowsAffected == 0) {
             throw new StaffNotFoundException("Staff with id: " + id + " not found");
         }

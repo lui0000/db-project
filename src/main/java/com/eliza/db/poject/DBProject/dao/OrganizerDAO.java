@@ -68,6 +68,6 @@ public class OrganizerDAO {
                 FROM organizer AS o
                     JOIN organizer_investor AS oi ON o.organizer_id = oi.organizer_id
                     JOIN investor as i on oi.investor_id = i.investor_id
-                WHERE o.organizer_id = 1;""", new BeanPropertyRowMapper<>(Investor.class), id);
+                WHERE o.organizer_id =?""", new BeanPropertyRowMapper<>(Investor.class), id);
     }
 }
