@@ -7,9 +7,11 @@ import com.eliza.db.poject.DBProject.util.OrganizerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class InvestorDAO {
     private final JdbcTemplate jdbcTemplate;
 
