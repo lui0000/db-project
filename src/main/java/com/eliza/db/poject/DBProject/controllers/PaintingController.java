@@ -6,7 +6,7 @@ import com.eliza.db.poject.DBProject.models.Style;
 import com.eliza.db.poject.DBProject.util.PaintingErrorResponse;
 import com.eliza.db.poject.DBProject.util.PaintingNotCreatedException;
 import com.eliza.db.poject.DBProject.util.PaintingNotFoundException;
-import com.eliza.db.poject.DBProject.util.PaintingValidator;
+import com.eliza.db.poject.DBProject.util.validators.PaintingValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

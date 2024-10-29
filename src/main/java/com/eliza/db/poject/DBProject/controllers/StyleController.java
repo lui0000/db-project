@@ -3,6 +3,7 @@ package com.eliza.db.poject.DBProject.controllers;
 import com.eliza.db.poject.DBProject.dao.StyleDAO;
 import com.eliza.db.poject.DBProject.models.Style;
 import com.eliza.db.poject.DBProject.util.*;
+import com.eliza.db.poject.DBProject.util.validators.StyleValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

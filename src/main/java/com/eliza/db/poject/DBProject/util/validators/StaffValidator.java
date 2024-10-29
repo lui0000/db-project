@@ -1,8 +1,9 @@
-package com.eliza.db.poject.DBProject.util;
+package com.eliza.db.poject.DBProject.util.validators;
 
 import com.eliza.db.poject.DBProject.dao.OrganizerDAO;
 import com.eliza.db.poject.DBProject.dao.StaffDAO;
 import com.eliza.db.poject.DBProject.models.Staff;
+import com.eliza.db.poject.DBProject.util.OrganizerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

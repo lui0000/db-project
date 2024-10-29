@@ -1,9 +1,9 @@
-package com.eliza.db.poject.DBProject.util;
+package com.eliza.db.poject.DBProject.util.validators;
 
 import com.eliza.db.poject.DBProject.dao.CreatorDAO;
 import com.eliza.db.poject.DBProject.dao.PaintingDAO;
 import com.eliza.db.poject.DBProject.models.Painting;
-import com.eliza.db.poject.DBProject.models.Staff;
+import com.eliza.db.poject.DBProject.util.CreatorNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

@@ -1,9 +1,10 @@
-package com.eliza.db.poject.DBProject.util;
+package com.eliza.db.poject.DBProject.util.validators;
 import com.eliza.db.poject.DBProject.dao.PaintingDAO;
 import com.eliza.db.poject.DBProject.dao.StyleDAO;
 import com.eliza.db.poject.DBProject.models.Painting;
-import com.eliza.db.poject.DBProject.models.Staff;
 import com.eliza.db.poject.DBProject.models.Style;
+import com.eliza.db.poject.DBProject.util.OrganizerNotFoundException;
+import com.eliza.db.poject.DBProject.util.PaintingNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -23,7 +24,7 @@ public class StyleValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return Painting.class.equals(clazz);
+        return Style.class.equals(clazz);
     }
 
     @Override
@@ -33,7 +34,7 @@ public class StyleValidator implements Validator {
 
         try {
             paintingDAO.show(paintingId);
-        } catch (OrganizerNotFoundException e) {
+        } catch (PaintingNotFoundException e) {
             errors.rejectValue("paintingId", "", paintingId + " does not exist");
         }
 
