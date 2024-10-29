@@ -6,6 +6,7 @@ import com.eliza.db.poject.DBProject.models.Style;
 import com.eliza.db.poject.DBProject.util.PaintingErrorResponse;
 import com.eliza.db.poject.DBProject.util.PaintingNotCreatedException;
 import com.eliza.db.poject.DBProject.util.PaintingNotFoundException;
+import com.eliza.db.poject.DBProject.util.PaintingValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,10 +21,12 @@ import java.util.List;
 @RequestMapping("/paintings")
 public class PaintingController {
     private final PaintingDAO paintingDAO;
+    private final PaintingValidator paintingValidator;
 
     @Autowired
-    public PaintingController(PaintingDAO paintingDAO) {
+    public PaintingController(PaintingDAO paintingDAO, PaintingValidator paintingValidator) {
         this.paintingDAO = paintingDAO;
+        this.paintingValidator = paintingValidator;
     }
 
     @GetMapping
@@ -38,6 +41,7 @@ public class PaintingController {
 
     @PostMapping("/add")
     public ResponseEntity<HttpStatus> create(@RequestBody @Valid Painting painting, BindingResult bindingResult) {
+        paintingValidator.validate(painting, bindingResult);
         if (bindingResult.hasErrors()) {
             StringBuilder errorMsg = new StringBuilder();
 

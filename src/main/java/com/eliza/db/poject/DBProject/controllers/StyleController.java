@@ -17,10 +17,12 @@ import java.util.List;
 @RequestMapping("/styles")
 public class StyleController {
     private final StyleDAO styleDAO;
+    private final StyleValidator styleValidator;
 
     @Autowired
-    public StyleController(StyleDAO styleDAO) {
+    public StyleController(StyleDAO styleDAO, StyleValidator styleValidator) {
         this.styleDAO = styleDAO;
+        this.styleValidator = styleValidator;
     }
 
     @GetMapping
@@ -35,6 +37,7 @@ public class StyleController {
 
     @PostMapping("/add")
     public ResponseEntity<HttpStatus> create(@RequestBody @Valid Style style, BindingResult bindingResult) {
+        styleValidator.validate(style, bindingResult);
         if (bindingResult.hasErrors()) {
             StringBuilder errorMsg = new StringBuilder();
             List<FieldError> errors = bindingResult.getFieldErrors();
