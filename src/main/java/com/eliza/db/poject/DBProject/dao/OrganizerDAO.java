@@ -57,7 +57,7 @@ public class OrganizerDAO {
 
 
     public List<Staff> getStaffByOrganizerId(int id) {
-        return jdbcTemplate.query("SELECT s.name, s.phone_number, s.role, s.organizer_id FROM staff AS s JOIN organizer AS o ON s.organizer_id = o.organizer_id WHERE o.organizer_id=?", new BeanPropertyRowMapper<>(Staff.class), id);
+        return jdbcTemplate.query("SELECT s.staff_id, s.name, s.phone_number, s.role, s.organizer_id FROM staff AS s JOIN organizer AS o ON s.organizer_id = o.organizer_id WHERE o.organizer_id=?", new BeanPropertyRowMapper<>(Staff.class), id);
     }
 
     public List<Investor> getInvestorByOrganizerId(int id) {

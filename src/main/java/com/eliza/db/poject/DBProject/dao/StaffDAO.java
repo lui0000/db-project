@@ -34,7 +34,7 @@ public class StaffDAO {
 
 
     public void save(Staff staff) {
-        jdbcTemplate.update("INSERT INTO staff(name, phone_number, role, organizer_id) VALUES(?, ?, ?, ?)",
+        jdbcTemplate.update("INSERT INTO staff(name, phone_number, role, organizer_id) VALUES(?, ?, ?, ?) ",
                 staff.getName(), staff.getPhoneNumber(), staff.getRole(), staff.getOrganizerId());
     }
 

@@ -17,10 +17,12 @@ import java.util.List;
 @RequestMapping("/staff")
 public class StaffController {
     private final StaffDAO staffDAO;
+    private final StaffValidator staffValidator;
 
     @Autowired
-    public StaffController(StaffDAO staffDAO) {
+    public StaffController(StaffDAO staffDAO, StaffValidator staffValidator) {
         this.staffDAO = staffDAO;
+        this.staffValidator = staffValidator;
     }
 
     @GetMapping
@@ -35,6 +37,7 @@ public class StaffController {
 
     @PostMapping("/add")
     public ResponseEntity<HttpStatus> create(@RequestBody @Valid Staff staff, BindingResult bindingResult) {
+        staffValidator.validate(staff, bindingResult);
         if (bindingResult.hasErrors()) {
             StringBuilder errorMsg = new StringBuilder();
             List<FieldError> errors = bindingResult.getFieldErrors();
