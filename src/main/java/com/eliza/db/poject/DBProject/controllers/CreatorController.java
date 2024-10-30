@@ -88,12 +88,12 @@ public class CreatorController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @GetMapping("/creators/{id}/paintings")
+    @GetMapping("/{id}/paintings")
     public List<Painting> showPaintings(@PathVariable int id) {
        return creatorDAO.getPaintingsByCreatorId(id);
     }
 
-    @GetMapping("/creators/{id}/exhibition-halls")
+    @GetMapping("/{id}/exhibition-halls")
     public List<ExhibitionHall> showExhibitionHalls(@PathVariable int id) {
         return creatorDAO.getExhibitionHallByCreatorId(id);
     }

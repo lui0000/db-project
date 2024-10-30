@@ -72,8 +72,7 @@ public class CreatorDAO {
     // many to many with exhibition hall
     public List<ExhibitionHall> getExhibitionHallByCreatorId(int id) {
         return jdbcTemplate.query("""
-                SELECT c.name,
-                    eh.exhibition_hall_id
+                SELECT eh.exhibition_hall_id, eh.organizer_id, eh.serial_number, eh.capacity
                 FROM creator AS c
                     JOIN creator_exhibition_hall AS ceh ON c.creator_id = ceh.creator_id
                     JOIN exhibition_hall AS eh ON ceh.exhibition_hall_id = eh.exhibition_hall_id
